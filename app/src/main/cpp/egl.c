@@ -66,8 +66,7 @@ EGLBoolean eglOpen(EGLContexts *eglContexts) {
 
     //create context
     const EGLint attribs[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
-    EGLContext elgContext = eglCreateContext(eglDisplay, config, EGL_NO_CONTEXT,
-                                             attribs);
+    EGLContext elgContext = eglCreateContext(eglDisplay, config, EGL_NO_CONTEXT, attribs);
     if (elgContext == EGL_NO_CONTEXT) {
         LOGV(" eglCreateContext failure, error is %d", eglGetError());
         return EGL_FALSE;
@@ -110,8 +109,15 @@ EGLBoolean linkWindow(EGLContexts *eglContexts) {
     return EGL_TRUE;
 }
 
-void draw(EGLContexts *eglContexts) {
-    eglSwapBuffers(eglContexts->eglDisplay, eglContexts->eglContext);
+void display(EGLContexts *eglContexts) {
+    LOGV("window  %d", eglContexts->window);
+    LOGV("eglSurface  %d", eglContexts->eglSurface);
+    EGLBoolean res = eglSwapBuffers(eglContexts->eglDisplay, eglContexts->eglSurface);
+    if (res == EGL_FALSE) {
+        LOGV("eglSwapBuffers Error %d", eglGetError());
+    } else {
+        LOGV("eglSwapBuffers Ok");
+    }
 }
 
 void getWindow(EGLContexts *eglContexts, JNIEnv *env, jobject surface) {
@@ -121,7 +127,6 @@ void getWindow(EGLContexts *eglContexts, JNIEnv *env, jobject surface) {
     }
     eglContexts->window = ANativeWindow_fromSurface(env, surface);
 
-    linkWindow(eglContexts);
 }
 
 EGLBoolean setWindowBuffersGeometry(EGLContexts *eglContexts, int32_t width, int32_t height) {
@@ -136,6 +141,7 @@ EGLBoolean setWindowBuffersGeometry(EGLContexts *eglContexts, int32_t width, int
 
     int32_t is = ANativeWindow_setBuffersGeometry(eglContexts->window, width, height, eglContexts->eglFormat);
     if (is == 0) {
+        LOGV("ANativeWindow_setBuffersGeometry ok ");
         return EGL_TRUE;
     } else {
         return EGL_FALSE;
