@@ -7,8 +7,9 @@
 
 #include <GLES2/gl2.h>
 
-GLboolean init(int width,int height);
 
-void draw(int width, int height);
+GLuint createShader(GLenum shaderType, const char *src);
+
+GLuint createProgram(const char *vtxSrc, const char *fragSrc);
 
 #endif //TESTOPENGLES_GLES_H

@@ -55,7 +55,7 @@ EGLBoolean eglOpen(EGLContexts *eglContexts) {
             EGL_NONE
     };
 
-    success = eglChooseConfig(eglDisplay, configAttribs, &config, 1,
+    success = eglChooseConfig(eglDisplay, CONFIG_ATTRIBS, &config, 1,
                               &numConfigs);
     if (!success) {
         LOGV(" eglChooseConfig failure.");

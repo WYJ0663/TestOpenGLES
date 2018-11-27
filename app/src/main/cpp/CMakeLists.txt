@@ -18,8 +18,10 @@ add_library( # Sets the name of the library.
 
         # Provides a relative path to your source file(s).
         native-lib.c
-        egl.c
-        gles.c)
+        main/egl.c
+        main/gles.c
+        main/matrix.c
+        texture/gles_tr.c)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -45,6 +47,7 @@ target_link_libraries( # Specifies the target library.
         # included in the NDK.
         ${log-lib}
         android
+        jnigraphics
         OpenSLES
         EGL
         GLESv2)

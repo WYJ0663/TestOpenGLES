@@ -7,16 +7,25 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+
+    <SurfaceView
+            android:id="@+id/surface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <Button
+            android:id="@+id/draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="draw"
+    android:onClick="onDraw"/>
+
     <TextView
             android:id="@+id/sample_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World!"
             android:textColor="#ffffff"
-            android:background="#000000"/>
-
-    <SurfaceView
-            android:id="@+id/surface"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:background="#33000000"/>
 </FrameLayout>
